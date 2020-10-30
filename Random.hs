@@ -21,6 +21,6 @@ removeDup l = removeD l []
         | otherwise = x: removeD xs (x:ls)
 
 randomList:: Int -> Int -> Int -> [Int]
-randomList n s limite = take n $ removeDup  $ randomRs (1,limite) g :: [Int]
+randomList n s limite = take n $ removeDup  $ randomRs (0,limite) g :: [Int]
                         where
                           g = mkStdGen s
