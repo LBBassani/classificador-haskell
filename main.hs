@@ -1,5 +1,5 @@
 import Random
-import ES
+import Utils
 
 main :: IO ()
 main = do   putStr("Forneca o nome do arquivo de entrada: ")
@@ -7,7 +7,7 @@ main = do   putStr("Forneca o nome do arquivo de entrada: ")
             putStr("Forneca o nome do arquivo de saida: ")
             saida <- getLine
             putStr("Forneca o percentual de exemplos de teste: ")
-            percent <- leNum
+            percent <- le_num
             putStr("Forneca o valor da semente para geracao randomizada: ")
-            semente <- leNum
+            semente <- le_num
             putStrLn(entrada ++ " " ++ saida ++ " " ++ show percent ++ " " ++ show semente)
