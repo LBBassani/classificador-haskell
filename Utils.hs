@@ -1,7 +1,7 @@
 module Utils (le_num, soma_listas, distancia_euclidiana) where
 {-
     Modulo do primeiro trabalho computacional de Programação Funcional em Haskell responsável pelo tratamento de
-        entradas e escrita dos arquivos de saída. 
+        entradas e escrita dos arquivos de saída e outras funções utilitárias. 
 -}
 
 le_num :: IO Int

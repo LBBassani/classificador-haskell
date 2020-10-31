@@ -1,4 +1,4 @@
-module CentroidClassifier where
+module CentroidClassifier (roda_classificador_centroide, centroide_classifica, centroide_treino) where
 import DataHandler
 import Utils
 
