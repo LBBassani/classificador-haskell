@@ -2,6 +2,11 @@ module CentroidClassifier (roda_classificador_centroide, centroide_classifica, c
 import DataHandler
 import Utils
 
+{-
+    Modulo do primeiro trabalho computacional de Programação Funcional em Haskell responsável por 
+      rodar o classificador centroide.
+-}
+
 -- roda o classificador, realizando o treino e o teste, devolvendo: ( classificador, [( atributos do registro, classificação dada, classificação real ) ] )
 roda_classificador_centroide :: [([Double], [Char])] -> [([Double], [Char])] -> ([([Double], [Char])], [([Double], [Char], [Char])])
 roda_classificador_centroide base_treino base_teste = (classificador, [(fst registro, centroide_classifica ( fst registro ) classificador, snd registro) | registro <- base_teste])

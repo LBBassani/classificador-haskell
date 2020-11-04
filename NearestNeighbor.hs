@@ -2,6 +2,11 @@ module NearestNeighbor (roda_classificador_nn, nn_classifica) where
 import DataHandler
 import Utils
 
+{-
+    Modulo do primeiro trabalho computacional de Programação Funcional em Haskell responsável por 
+      rodar o classificador vizinho mais próximo.
+-}
+
 -- roda o classificador, realizando o treino e o teste, devolvendo: ( classificador, [( atributos do registro, classificação dada, classificação real ) ] )
 roda_classificador_nn :: [([Double], [Char])] -> [([Double], [Char])] -> ([([Double], [Char])], [([Double], [Char], [Char])])
 roda_classificador_nn base_treino base_teste = (base_treino, [(fst registro, nn_classifica ( fst registro ) base_treino, snd registro) | registro <- base_teste])
