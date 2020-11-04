@@ -17,21 +17,23 @@ split d [] = []
 split d s = x : split d (drop 1 y) where (x,y) = span (/= d) s
 
 -- Separa os dados vindo do csv em base de treino e teste
-base_treino_teste :: [Char] -> Int -> Int -> ([([Double], [Char])], [([Double], [Char])])
-base_treino_teste str percent seed = (base_treino, base_teste)
+base_treino_teste :: [([Double], [Char])] -> Int -> Int -> ([([Double], [Char])], [([Double], [Char])])
+base_treino_teste regs percent seed = (base_treino, base_teste)
                                     where
                                         base_treino = [ regs!!x | x <- drop n aleatorios]
                                         base_teste = [ regs!!x | x <- take n aleatorios]
-                                        regs = registros str
                                         aleatorios = randomList tamanho seed (tamanho -1)
                                         n = truncate $ fromIntegral(tamanho*percent)/100.0
                                         tamanho = length regs
 
+-- Retorna a base separada por classes
 separa_em_classes :: Eq a1 => [(a2, a1)] -> [[(a2, a1)]]
 separa_em_classes base = [ registros_da_classe classe base | classe <- descobre_classes base ]
 
+-- Devolve todos os registros de uma dada classe na base
 registros_da_classe :: Eq a1 => a1 -> [(a2, a1)] -> [(a2, a1)]
 registros_da_classe classe base = [ x | x <- base, snd x == classe]
 
+-- Descobre as classes da base
 descobre_classes :: Eq a1 => [(a2, a1)] -> [a1]
 descobre_classes base = nub $ map snd base
