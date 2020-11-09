@@ -8,13 +8,13 @@ import Utils
 -}
 
 -- roda o classificador, realizando o treino e o teste, devolvendo: ( classificador, [( atributos do registro, classificação dada, classificação real ) ] )
-roda_classificador_centroide :: [([Double], [Char])] -> [([Double], [Char])] -> ([([Double], [Char])], [([Double], [Char], [Char])])
+roda_classificador_centroide :: [Registro] -> [Registro] -> ([Registro], [([Double], [Char], [Char])])
 roda_classificador_centroide base_treino base_teste = (classificador, [(fst registro, centroide_classifica ( fst registro ) classificador, snd registro) | registro <- base_teste])
                                                         where
                                                             classificador = centroide_treino base_treino
 
 -- classifica um registro através do classificador treinado pelo método centroide
-centroide_classifica :: [Double] -> [([Double], [Char])] -> [Char]
+centroide_classifica :: [Double] -> [Registro] -> [Char]
 centroide_classifica registro classificador = snd menor_dist
                                                 where
                                                     menor_dist = foldr1 menor distancias
@@ -22,7 +22,7 @@ centroide_classifica registro classificador = snd menor_dist
                                                     distancias = [ (distancia_euclidiana registro $ fst centroide_classe, snd centroide_classe ) | centroide_classe <- classificador ]
 
 -- Realiza o treinamento do classificador centroide, descobrindo os pontos médios de cada classe na base de treinamento
-centroide_treino :: [([Double], [Char])] -> [([Double], [Char])]
+centroide_treino :: [Registro] -> [Registro]
 centroide_treino base_treino = [ (ponto_medio_classe $ map fst x, snd $ x!!0) | x <- separa_em_classes base_treino ]
 
 -- Calcula o ponto médio de uma classe

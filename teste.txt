@@ -1,4 +1,0 @@
-iris.csv
-iris_confusao.txt
-30
-42

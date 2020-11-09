@@ -1,4 +1,4 @@
-module DataHandler (registros, base_treino_teste, separa_em_classes, descobre_classes) where
+module DataHandler (registros, base_treino_teste, separa_em_classes, descobre_classes, Registro) where
 import Random
 import Data.List
 {-
@@ -6,9 +6,11 @@ import Data.List
       tratar da entrada do arquivo csv de entrada e criar os conjuntos de treinamento e teste.
 -}
 
+type Registro = ([Double], [Char])
+
 -- Separa string do arquivo csv lido em registros do tipo ([Double], String) onde a lista de Double são os atributos
 -- e a String é a classe do registro
-registros :: String -> [([Double], [Char])]
+registros :: [Char] -> [Registro]
 registros str = [ (map (read::String->Double) $ init $ split ',' linha, last $ split ',' linha) | linha <- lines str ]
 
 -- Separa uma string de acordo com um elemento d
@@ -17,13 +19,13 @@ split d [] = []
 split d s = x : split d (drop 1 y) where (x,y) = span (/= d) s
 
 -- Separa os dados vindo do csv em base de treino e teste
-base_treino_teste :: [([Double], [Char])] -> Int -> Int -> ([([Double], [Char])], [([Double], [Char])])
+base_treino_teste :: [Registro] -> Int -> Int -> ([Registro], [Registro])
 base_treino_teste regs percent seed = (base_treino, base_teste)
                                     where
-                                        base_treino = [ regs!!x | x <- drop n aleatorios]
-                                        base_teste = [ regs!!x | x <- take n aleatorios]
+                                        base_treino = [ regs!!x | x <- take n aleatorios]
+                                        base_teste = [ regs!!x | x <- drop n aleatorios]
                                         aleatorios = randomList tamanho seed (tamanho -1)
-                                        n = truncate $ fromIntegral(tamanho*percent)/100.0
+                                        n = tamanho - ( truncate $ fromIntegral(tamanho*percent)/100.0)
                                         tamanho = length regs
 
 -- Retorna a base separada por classes
