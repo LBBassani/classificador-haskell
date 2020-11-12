@@ -7,7 +7,7 @@ import Utils
       rodar o classificador vizinho mais próximo.
 -}
 
--- roda o classificador, realizando o treino e o teste, devolvendo: ( classificador, [( atributos do registro, classificação dada, classificação real ) ] )
+-- roda o classificador, realizando o treino e o teste, devolvendo: ( classificador, [( (atributos do registro, classificação dada), classificação real ) ] )
 roda_classificador_nn :: [Registro] -> [Registro] -> ([Registro], [(Registro, [Char])])
 roda_classificador_nn base_treino base_teste = (base_treino, [((fst registro, nn_classifica ( fst registro ) base_treino), snd registro) | registro <- base_teste])
 

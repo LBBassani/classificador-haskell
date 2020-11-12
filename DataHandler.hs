@@ -22,10 +22,10 @@ split d s = x : split d (drop 1 y) where (x,y) = span (/= d) s
 base_treino_teste :: [Registro] -> Int -> Int -> ([Registro], [Registro])
 base_treino_teste regs percent seed = (base_treino, base_teste)
                                     where
-                                        base_treino = [ regs!!x | x <- take n aleatorios]
-                                        base_teste = [ regs!!x | x <- drop n aleatorios]
-                                        aleatorios = randomList tamanho seed (tamanho -1)
-                                        n = tamanho - ( truncate $ fromIntegral(tamanho*percent)/100.0)
+                                        base_treino = [ regs!!x | x <- drop n aleatorios]
+                                        base_teste = [ regs!!x | x <- take n aleatorios]
+                                        aleatorios = randomList tamanho seed (tamanho)
+                                        n =  truncate $ fromIntegral(tamanho*percent)/100.0
                                         tamanho = length regs
 
 -- Retorna a base separada por classes

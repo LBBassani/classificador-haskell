@@ -7,7 +7,7 @@ import Utils
       rodar o classificador centroide.
 -}
 
--- roda o classificador, realizando o treino e o teste, devolvendo: ( classificador, [( atributos do registro, classificação dada, classificação real ) ] )
+-- roda o classificador, realizando o treino e o teste, devolvendo: ( classificador, [( (atributos do registro, classificação dada), classificação real ) ] )
 roda_classificador_centroide :: [Registro] -> [Registro] -> ([Registro], [(Registro, [Char])])
 roda_classificador_centroide base_treino base_teste = (classificador, [((fst registro, centroide_classifica ( fst registro ) classificador), snd registro) | registro <- base_teste])
                                                         where

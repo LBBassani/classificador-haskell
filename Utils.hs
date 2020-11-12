@@ -1,4 +1,6 @@
 module Utils (le_num, soma_listas, distancia_euclidiana, matriz_to_string) where
+import Text.Printf
+
 {-
     Modulo do primeiro trabalho computacional de Programação Funcional em Haskell responsável pelo tratamento de
         entradas e escrita dos arquivos de saída e outras funções utilitárias. 
@@ -21,5 +23,5 @@ matriz_to_string :: [[Int]] -> [Char]
 matriz_to_string matriz = foldr1 (++) linhas_matriz
                         where
                             linhas_matriz = [ linha_matriz x | x <- matriz ]
-                            linha_matriz [x] = show x ++ "\n"
-                            linha_matriz (x:xs) = show x ++ ", " ++ linha_matriz xs
+                            linha_matriz [x] = printf "%3d\n" x
+                            linha_matriz (x:xs) = printf "%3d, " x ++ linha_matriz xs

@@ -9,7 +9,7 @@ import DataHandler(Registro)
 
 -- Analisa a acurácia de um classificador a partir de seus resultados
 analisa_acuracia :: [(Registro, [Char])] -> Double
-analisa_acuracia resultados = 100*(fromIntegral corretos )/(fromIntegral $ length resultados)
+analisa_acuracia resultados = 100*(fromIntegral corretos)/(fromIntegral $ length resultados)
                                 where
                                     corretos = length $ filter (\((_,x),y) -> x == y) resultados
 
