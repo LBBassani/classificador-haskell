@@ -24,7 +24,7 @@ base_treino_teste regs percent seed = (base_treino, base_teste)
                                     where
                                         base_treino = [ regs!!x | x <- drop n aleatorios]
                                         base_teste = [ regs!!x | x <- take n aleatorios]
-                                        aleatorios = randomList tamanho seed (tamanho)
+                                        aleatorios = randomList tamanho seed (tamanho - 1)
                                         n =  truncate $ fromIntegral(tamanho*percent)/100.0
                                         tamanho = length regs
 

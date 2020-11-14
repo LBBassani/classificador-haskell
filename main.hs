@@ -4,6 +4,8 @@ import CentroidClassifier
 import NearestNeighbor
 import ClassifierAnalysis
 import Text.Printf
+import System.IO
+
 
 {-
     Primeiro trabalho computacional de Programação Funcional em Haskell. Realiza o treinamento de dois classificadores
@@ -12,7 +14,9 @@ import Text.Printf
 -}
 
 main :: IO ()
-main = do   --leitura dos parametros de entrada
+main = do   -- Impedir buffering para escrever todas as mensagens na tela
+            hSetBuffering stdout NoBuffering
+            --leitura dos parametros de entrada
             putStr("Forneca o nome do arquivo de entrada: ")
             entrada <- getLine
             putStr("Forneca o nome do arquivo de saida: ")
