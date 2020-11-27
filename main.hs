@@ -23,6 +23,10 @@ main = do   -- Impedir buffering para escrever todas as mensagens na tela
             saida <- getLine
             putStr("Forneca o percentual de exemplos de teste: ")
             percent <- le_num
+            putStr("Forneca o número de folds: ")
+            folds <- le_num
+            putStr("Forneca o número de vizinhos: ")
+            num_knn <- le_num
             putStr("Forneca o valor da semente para geracao randomizada: ")
             semente <- le_num
             -- Preparo das bases de treino e teste
@@ -45,5 +49,12 @@ main = do   -- Impedir buffering para escrever todas as mensagens na tela
             putStrLn("%")
             let matriz_confusao = monta_matriz_confusao classes $ snd resultados
             let escrever_saida_centroide = "centroides:\n" ++ matriz_to_string matriz_confusao ++ "\n"
+            -- Resultados do classificador knn
+            let resultados = roda_classificador_knn num_knn base_treino base_teste
+            putStr("Acuracia(k-vizinhos): " )
+            printf "%.2f" (analisa_acuracia $ snd resultados)
+            putStrLn("%")
+            let matriz_confusao = monta_matriz_confusao classes $ snd resultados
+            let escrever_saida_knn = "k-vizinhos mais próximos:\n" ++ matriz_to_string matriz_confusao ++ "\n"
             -- Escrevendo no arquivo de saída
-            writeFile saida $ escrever_saida_vizinho ++ escrever_saida_centroide
+            writeFile saida $ escrever_saida_vizinho ++ escrever_saida_centroide ++ escrever_saida_knn

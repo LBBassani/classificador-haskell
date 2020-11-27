@@ -1,4 +1,4 @@
-module NearestNeighbor (roda_classificador_nn, nn_classifica) where
+module NearestNeighbor (roda_classificador_nn, nn_classifica, roda_classificador_knn, knn_classifica) where
 import DataHandler
 import Utils
 
