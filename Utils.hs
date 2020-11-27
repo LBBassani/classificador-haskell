@@ -1,4 +1,4 @@
-module Utils (le_num, soma_listas, distancia_euclidiana, matriz_to_string) where
+module Utils (le_num, soma_listas, distancia_euclidiana, matriz_to_string, qsort) where
 import Text.Printf
 
 {-
@@ -25,3 +25,7 @@ matriz_to_string matriz = foldr1 (++) linhas_matriz
                             linhas_matriz = [ linha_matriz x | x <- matriz ]
                             linha_matriz [x] = printf "%3d\n" x
                             linha_matriz (x:xs) = printf "%3d, " x ++ linha_matriz xs
+
+qsort :: (Ord a) => [a] -> [a]
+qsort [] = []
+qsort (x:xs) = qsort [ a | a <- xs, a <= x ] ++ [x] ++ qsort [ a | a <- xs, a > x]                           
