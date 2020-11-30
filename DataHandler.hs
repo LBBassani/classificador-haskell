@@ -1,4 +1,4 @@
-module DataHandler (registros, base_treino_teste, separa_em_classes, descobre_classes, Registro) where
+module DataHandler (registros, base_treino_teste, k_folds_treino_teste, separa_em_classes, descobre_classes, Registro) where
 import Random
 import Data.List
 {-
@@ -26,6 +26,23 @@ base_treino_teste regs percent seed = (base_treino, base_teste)
                                         base_teste = [ regs!!x | x <- take n aleatorios]
                                         aleatorios = randomList tamanho seed (tamanho - 1)
                                         n =  truncate $ fromIntegral(tamanho*percent)/100.0
+                                        tamanho = length regs
+
+--
+k_folds_treino_teste :: [Registro] -> Int -> Int -> [([Registro], [Registro])]
+k_folds_treino_teste regs k seed = [ ( folds_treino i, folds_teste i ) | i <- [0..k - 1] ]
+                                    where
+                                        folds_treino i = [regs!!x | x <- foldr1 (++) $ (take i folds ++ (drop (i+1) folds) ) ]
+                                        folds_teste i = [regs!!x | x <- (folds!!i) ]
+                                        folds = monta_folds 0 separa_folds
+                                        monta_folds i lista_folds = if null $ last lista_folds
+                                                                        then monta_folds i $ init lista_folds
+                                                                        else if length lista_folds == k
+                                                                                then lista_folds
+                                                                                else monta_folds (i+1) ( take i lista_folds ++ [(lista_folds!!i ++ (take 1 $ last lista_folds) )] ++ (init $ drop (i+1) lista_folds ) ++ [(drop 1 $ last lista_folds)] )
+                                        separa_folds = [ take n $ drop (n*i) aleatorios | i <- [0..k - 1] ] ++ [drop (k*n) aleatorios]
+                                        aleatorios = randomList tamanho seed (tamanho - 1)
+                                        n = div tamanho k
                                         tamanho = length regs
 
 -- Retorna a base separada por classes
