@@ -23,11 +23,4 @@ centroide_classifica registro classificador = snd menor_dist
 
 -- Realiza o treinamento do classificador centroide, descobrindo os pontos médios de cada classe na base de treinamento
 centroide_treino :: [Registro] -> [Registro]
-centroide_treino base_treino = [ (ponto_medio_classe $ map fst x, snd $ x!!0) | x <- separa_em_classes base_treino ]
-
--- Calcula o ponto médio de uma classe
-ponto_medio_classe :: [[Double]] -> [Double]
-ponto_medio_classe registros_classe = map (/tamanho) somatoria
-                                        where
-                                            tamanho = fromIntegral $ length registros_classe
-                                            somatoria = foldr1 soma_listas registros_classe
+centroide_treino base_treino = [ (ponto_medio_lista $ map fst x, snd $ x!!0) | x <- separa_em_classes base_treino ]
