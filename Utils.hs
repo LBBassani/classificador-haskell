@@ -1,4 +1,4 @@
-module Utils (le_num, soma_listas, subtrai_listas, divide_listas, distancia_euclidiana, matriz_to_string, qsort, ponto_medio_lista) where
+module Utils (le_num, media, desvio_padrao, soma_listas, subtrai_listas, divide_listas, distancia_euclidiana, matriz_to_string, qsort, ponto_medio_lista, desvio_padrao_listas) where
 import Text.Printf
 
 {-
@@ -43,3 +43,22 @@ ponto_medio_lista lista = map (/tamanho) somatoria
                                         where
                                             tamanho = fromIntegral $ length lista
                                             somatoria = foldr1 soma_listas lista
+
+desvio_padrao_listas :: [Double] -> [[Double]] -> [Double]
+desvio_padrao_listas media pontos = map sqrt $ map (/ tamanho) (foldr1 soma_listas quadrado_dist_media_pontos)
+                            where
+                                quadrado_dist_media_pontos = (map (\y -> map (**2) (subtrai_listas y media)) pontos)
+                                tamanho = fromIntegral $ length pontos
+
+media :: (Fractional a) => [a] -> a
+media lista = somatoria/tamanho
+            where
+                tamanho = fromIntegral $ length lista
+                somatoria = foldr1 (+) lista
+
+desvio_padrao :: [Double] -> Double
+desvio_padrao lista = sqrt $ (foldr1 (+) quadrado_dist_media_pontos)/tamanho
+                            where
+                                quadrado_dist_media_pontos = map (**2) $ map (\x -> x-media) lista
+                                media = (foldr1 (+) lista)/tamanho
+                                tamanho = fromIntegral $ length lista
