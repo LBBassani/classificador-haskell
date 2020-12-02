@@ -1,4 +1,4 @@
-module ClassifierAnalysis (analisa_acuracia, monta_matriz_confusao) where
+module ClassifierAnalysis (analisa_acuracia, monta_matriz_confusao, matriz_confusao_media) where
 import Utils
 import DataHandler(Registro)
 
@@ -26,3 +26,12 @@ linha_matriz_confusao classe classes resultados = [ celula_matriz_confusao x pre
 -- Calcula uma celula da matriz de confusão de um classificador
 celula_matriz_confusao :: [Char] -> [(Registro, [Char])] -> Int
 celula_matriz_confusao classe preditos = length $ filter (\((_,_),y) -> y == classe) preditos
+
+matriz_confusao_media :: [[[Int]]] -> [[Int]]
+matriz_confusao_media matrizes_confusao = [linha_matriz_confusao_media i matrizes_confusao | i <- [0.. length (matrizes_confusao!!0) - 1 ]]
+
+linha_matriz_confusao_media :: Int -> [[[Int]]] -> [Int]
+linha_matriz_confusao_media i matrizes_confusao = [ celula_matriz_confusao_media i j matrizes_confusao | j <- [0..length ((matrizes_confusao!!0)!!0) - 1] ]
+
+celula_matriz_confusao_media :: Int -> Int -> [[[Int]]] -> Int
+celula_matriz_confusao_media i j matrizes_confusao = div (foldr1 (+) [ (x!!i)!!j | x <- matrizes_confusao])  (fromIntegral $ length matrizes_confusao)
