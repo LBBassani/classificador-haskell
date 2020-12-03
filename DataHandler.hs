@@ -1,4 +1,4 @@
-module DataHandler (registros, base_treino_teste, k_folds_treino_teste, separa_em_classes, descobre_classes, Registro) where
+module DataHandler (registros, base_treino_teste, k_folds_treino_teste, separa_em_classes, descobre_classes, padroniza_bases, Registro) where
 import Utils
 import Random
 import Data.List
@@ -29,7 +29,7 @@ base_treino_teste regs percent seed = (base_treino, base_teste)
                                         n =  truncate $ fromIntegral(tamanho*percent)/100.0
                                         tamanho = length regs
 
---
+-- Separa os dados vindo do csv em k bases de treino e teste a partir da separação em k_folds
 k_folds_treino_teste :: [Registro] -> Int -> Int -> [([Registro], [Registro])]
 k_folds_treino_teste regs k seed = [ ( folds_treino i, folds_teste i ) | i <- [0..k - 1] ]
                                     where
@@ -58,13 +58,11 @@ registros_da_classe classe base = [ x | x <- base, snd x == classe]
 descobre_classes :: Eq a1 => [(a2, a1)] -> [a1]
 descobre_classes base = nub $ map snd base
 
--- Padronização das bases
+-- Padronização das bases através de z-score
 padroniza_bases :: ([Registro], [Registro]) -> ([Registro], [Registro])
 padroniza_bases (base_treino, base_teste) = (map padroniza base_treino, map padroniza base_teste)
                                             where
                                                 padroniza x = (divide_listas ( subtrai_listas (fst x) media ) desvio, snd x)
                                                 media = ponto_medio_lista atributos_treino
-                                                desvio = map sqrt $ map (/ tamanho) (foldr1 soma_listas quadrado_dist_media_pontos)
-                                                quadrado_dist_media_pontos = (map (\y -> map (**2) (subtrai_listas y media)) atributos_treino)
-                                                tamanho = fromIntegral $ length atributos_treino
+                                                desvio = desvio_padrao_listas media atributos_treino
                                                 atributos_treino = map fst base_treino

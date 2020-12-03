@@ -6,6 +6,7 @@ import Text.Printf
         entradas e escrita dos arquivos de saída e outras funções utilitárias. 
 -}
 
+-- Lê um inteiro da entrada padrão
 le_num :: IO Int
 le_num = do num <- getLine
             return (read num :: Int)
@@ -34,28 +35,33 @@ matriz_to_string matriz = foldr1 (++) linhas_matriz
                             linha_matriz [x] = printf "%3d\n" x
                             linha_matriz (x:xs) = printf "%3d, " x ++ linha_matriz xs
 
+-- Ordena através do método quick sort
 qsort :: (Ord a) => [a] -> [a]
 qsort [] = []
 qsort (x:xs) = qsort [ a | a <- xs, a <= x ] ++ [x] ++ qsort [ a | a <- xs, a > x]    
 
+-- Calcula o ponto médio de uma lista de pontos no Rn
 ponto_medio_lista :: [[Double]] -> [Double]
 ponto_medio_lista lista = map (/tamanho) somatoria
                                         where
                                             tamanho = fromIntegral $ length lista
                                             somatoria = foldr1 soma_listas lista
 
+-- Calcula o desvio padrão de uma lista de pontos no Rn (é preciso fornecer a média como entrada para uso em padronização)
 desvio_padrao_listas :: [Double] -> [[Double]] -> [Double]
 desvio_padrao_listas media pontos = map sqrt $ map (/ tamanho) (foldr1 soma_listas quadrado_dist_media_pontos)
                             where
                                 quadrado_dist_media_pontos = (map (\y -> map (**2) (subtrai_listas y media)) pontos)
                                 tamanho = fromIntegral $ length pontos
 
+-- Calcula a média de uma lista de números
 media :: (Fractional a) => [a] -> a
 media lista = somatoria/tamanho
             where
                 tamanho = fromIntegral $ length lista
                 somatoria = foldr1 (+) lista
 
+-- Calcula o desvio padrão de uma lista de números
 desvio_padrao :: [Double] -> Double
 desvio_padrao lista = sqrt $ (foldr1 (+) quadrado_dist_media_pontos)/tamanho
                             where
