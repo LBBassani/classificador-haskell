@@ -1,3 +1,4 @@
+================= Exemplos com padronização ====================================
 ========================= Interacao ============================================
 
 Forneca o nome do arquivo de entrada: breast.csv
@@ -5,10 +6,10 @@ Forneca o nome do arquivo de saida: conf-breast-10-3-89.txt
 Forneca o numero de folds: 10
 Forneca o numero de vizinhos: 3
 Forneca o valor da semente para geracao randomizada: 89
-Acuracia(vizinho): 91.38%
-Desvio-Padrao(vizinho): 1.48%
-Acuracia(centroide): 91.75%
-Desvio-Padrao(centroide): 4.08%
+Acuracia(vizinho): 91.56%
+Desvio-Padrao(vizinho): 1.56%
+Acuracia(centroide): 91.58%
+Desvio-Padrao(centroide): 3.66%
 Acuracia(k-vizinhos): 89.98%
 Desvio-Padrao(k-vizinhos): 1.94%
 
@@ -23,17 +24,13 @@ Desvio-Padrao(k-vizinhos): 1.94%
 ============= Matrizes de confusao =============================================
 
 vizinho mais proximo:
-181, 18
- 31,339
+183, 19
+ 29,338
 
 centroides:
-172,  7
- 40,350
+172,  8
+ 40,349
 
 k-vizinhos mais próximos:
-172, 17
- 40,340
-
-
-
-
+171, 16
+ 41,341
